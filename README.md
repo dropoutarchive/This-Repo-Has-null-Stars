@@ -1,2 +1,2 @@
 # Stargazers
-`Dropout1337`</br>`CodeDiseaseDev`</br>`n1ckyl337`</br>`kiIogram`</br>
+`1` - `Dropout1337`</br>`2` - `CodeDiseaseDev`</br>`3` - `n1ckyl337`</br>`4` - `kiIogram`</br>
