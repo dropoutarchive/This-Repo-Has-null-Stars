@@ -5,6 +5,7 @@ import sys
 import logging
 import requests
 from time import sleep
+from github import Github as PyGithub
 
 logging.basicConfig(level=logging.INFO, format=f"[\x1b[38;5;199mGithub\x1b[0m] \x1b[38;5;199m->\x1b[0m %(message)s")
 
@@ -17,6 +18,8 @@ Check_Interval = 1000
 Milestone_Step = 500
 Repository_ID = "GITHUB_REPO_ID"
 Access_Token = "GITHUB_ACCESS_TOKEN"
+
+github = PyGithub(Access_Token)
 
 headers = {
 	"Authorization": f"token {Access_Token}"
@@ -57,19 +60,58 @@ def Rename_Repo(json):
 	except:
 		return False
 
+def Get_Stargazers():
+	stargazers = []
+	r = requests.get(f"https://api.github.com/repositories/{Repository_ID}/stargazers", headers=headers)
+	for user in r.json():
+		stargazers.append(user["login"])
+	return stargazers
+
+def Get_Forks():
+	stargazers = []
+	r = requests.get(f"https://api.github.com/repositories/{Repository_ID}/forks", headers=headers)
+	for user in r.json():
+		stargazers.append(user["owner"]["login"])
+	return stargazers
+
+def Update_Readme():
+	content = "# Information\n`If you would like to be on this repo's readme`</br>`simply fork or star it!`</br>\n"
+	content += "# Forks\n"
+	count = 1
+	for user in Get_Forks():
+		content += f"`{count}` - `{user}`</br>"
+		count += 1
+	content += "\n# Stargazers\n"
+	count = 1
+	for user in Get_Stargazers():
+		content += f"`{count}` - `{user}`</br>"
+		count += 1
+
+	stars = Get_Repo_Stars()
+	repo = github.get_user().get_repo(f"This-Repo-Has-{stars}-Stars")
+	file = repo.get_contents("README.md")
+	repo.update_file("README.md", "Update README.md", content, file.sha)
+	return True
+
 def Task():
 	logging.info("Started task!")
 	while True:
 		stars = Get_Repo_Stars()
 		if stars != False:
-			r = Rename_Repo({
+			rename = Rename_Repo({
 				"name": f"This-Repo-Has-{stars}-Stars",
 				"description": f"Yes it's true {Milestone_Emoji(stars)}"
 			})
-			if r != False:
+			if rename != False:
 				logging.info(f"Renamed repo, stars count is now \x1b[38;5;199m@\x1b[0m {stars}")
 			else:
 				logging.info(f"Failed to rename repo, stars count is now \x1b[38;5;199m@\x1b[0m {stars}")
+
+			update = Update_Readme()
+			if update != False:
+				logging.info(f"Updated file \x1b[38;5;199m->\x1b[0m README.md")
+			else:
+				logging.info(f"Failed to update file \x1b[38;5;199m->\x1b[0m README.md")
 		else:
 			logging.info(f"Failed to fetch stars!")
 
