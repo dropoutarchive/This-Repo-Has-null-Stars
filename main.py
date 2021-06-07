@@ -65,14 +65,19 @@ def Get_Stargazers():
 	r = requests.get(f"https://api.github.com/repositories/{Repository_ID}/stargazers", headers=headers)
 	for user in r.json():
 		stargazers.append(user["login"])
+	if stargazers == []:
+		return ["No stargazers..."]
 	return stargazers
 
 def Get_Forks():
-	stargazers = []
+	forks = []
 	r = requests.get(f"https://api.github.com/repositories/{Repository_ID}/forks", headers=headers)
 	for user in r.json():
-		stargazers.append(user["owner"]["login"])
-	return stargazers
+		forks.append(user["owner"]["login"])
+	if forks == []:
+		return ["No forks..."]
+	else:
+		return forks
 
 def Update_Readme():
 	content = "# Information\n`If you would like to be on this repo's readme`</br>`simply fork or star it!`</br>\n"
