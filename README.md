@@ -1,4 +1,5 @@
-# Stargazers`Dropout1337`
+# Stargazers
+`Dropout1337`
 `CodeDiseaseDev`
 `n1ckyl337`
 `kiIogram`
