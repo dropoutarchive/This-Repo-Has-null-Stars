@@ -1,1 +1,2 @@
-# This-repo-has-0-stars
+# Guess what!
+- Star the repo and watch the magic.
