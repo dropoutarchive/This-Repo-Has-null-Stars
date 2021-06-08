@@ -14,10 +14,10 @@ if sys.platform == "linux":
 else:
     clear = lambda: os.system("cls")
 
-Check_Interval = 1000
+Check_Interval = 60
 Milestone_Step = 500
-Repository_ID = "GITHUB_REPO_ID"
-Access_Token = "GITHUB_ACCESS_TOKEN"
+Repository_ID = "REPO_ID"
+Access_Token = "ACCESS_TOKEN"
 
 github = PyGithub(Access_Token)
 
@@ -61,67 +61,82 @@ def Rename_Repo(json):
 		return False
 
 def Get_Stargazers():
-	stargazers = []
-	r = requests.get(f"https://api.github.com/repositories/{Repository_ID}/stargazers", headers=headers)
-	for user in r.json():
-		stargazers.append(user["login"])
-	if stargazers == []:
-		return ["No stargazers..."]
-	return stargazers
-
+	try:
+		stargazers = []
+		r = requests.get(f"https://api.github.com/repositories/{Repository_ID}/stargazers", headers=headers)
+		for user in r.json():
+			stargazers.append(user["login"])
+		if stargazers == []:
+			return ["No stargazers..."]
+		return stargazers
+	except Exception as error:
+		logging.info(f"Unknown Error \x1b[38;5;199m->\x1b[0m {error}")
+		return False
+		
 def Get_Forks():
-	forks = []
-	r = requests.get(f"https://api.github.com/repositories/{Repository_ID}/forks", headers=headers)
-	for user in r.json():
-		forks.append(user["owner"]["login"])
-	if forks == []:
-		return ["No forks..."]
-	else:
-		return forks
+	try:
+		forks = []
+		r = requests.get(f"https://api.github.com/repositories/{Repository_ID}/forks", headers=headers)
+		for user in r.json():
+			forks.append(user["owner"]["login"])
+		if forks == []:
+			return ["No forks..."]
+		else:
+			return forks
+	except Exception as error:
+		logging.info(f"Unknown Error \x1b[38;5;199m->\x1b[0m {error}")
+		return False
 
 def Update_Readme():
-	content = "# Information\n`If you would like to be on this repo's readme`</br>`simply fork or star it!`</br>\n"
-	content += "# Forks\n"
-	count = 1
-	for user in Get_Forks():
-		content += f"`{count}` - `{user}`</br>"
-		count += 1
-	content += "\n# Stargazers\n"
-	count = 1
-	for user in Get_Stargazers():
-		content += f"`{count}` - `{user}`</br>"
-		count += 1
+	try:
+		content = "# Information\n`If you would like to be on this repo's readme`</br>`simply fork or star it!`</br>\n"
+		content += "# Forks\n"
+		count = 1
+		for user in Get_Forks():
+			content += f"`{count}` - `{user}`</br>"
+			count += 1
+		content += "\n# Stargazers\n"
+		count = 1
+		for user in Get_Stargazers():
+			content += f"`{count}` - `{user}`</br>"
+			count += 1
 
-	stars = Get_Repo_Stars()
-	repo = github.get_user().get_repo(f"This-Repo-Has-{stars}-Stars")
-	file = repo.get_contents("README.md")
-	repo.update_file("README.md", "Update README.md", content, file.sha)
-	return True
+		stars = Get_Repo_Stars()
+		repo = github.get_user().get_repo(f"This-Repo-Has-{stars}-Stars")
+		file = repo.get_contents("README.md")
+		repo.update_file("README.md", "Update README.md", content, file.sha)
+		return True
+	except Exception as error:
+		logging.info(f"Unknown Error \x1b[38;5;199m->\x1b[0m {error}")
+		return False
 
 def Task():
-	logging.info("Started task!")
-	while True:
-		stars = Get_Repo_Stars()
-		if stars != False:
-			rename = Rename_Repo({
-				"name": f"This-Repo-Has-{stars}-Stars",
-				"description": f"Yes it's true {Milestone_Emoji(stars)}"
-			})
-			if rename != False:
-				logging.info(f"Renamed repo, stars count is now \x1b[38;5;199m@\x1b[0m {stars}")
-			else:
-				logging.info(f"Failed to rename repo, stars count is now \x1b[38;5;199m@\x1b[0m {stars}")
+	try:
+		logging.info("Started task!")
+		while True:
+			stars = Get_Repo_Stars()
+			if stars != False:
+				rename = Rename_Repo({
+					"name": f"This-Repo-Has-{stars}-Stars",
+					"description": f"Yes it's true {Milestone_Emoji(stars)}"
+				})
+				if rename != False:
+					logging.info(f"Renamed repo, stars count is now \x1b[38;5;199m@\x1b[0m {stars}")
+				else:
+					logging.info(f"Failed to rename repo, stars count is now \x1b[38;5;199m@\x1b[0m {stars}")
 
-			update = Update_Readme()
-			if update != False:
-				logging.info(f"Updated file \x1b[38;5;199m->\x1b[0m README.md")
+				update = Update_Readme()
+				if update != False:
+					logging.info(f"Updated file \x1b[38;5;199m->\x1b[0m README.md")
+				else:
+					logging.info(f"Failed to update file \x1b[38;5;199m->\x1b[0m README.md")
 			else:
-				logging.info(f"Failed to update file \x1b[38;5;199m->\x1b[0m README.md")
-		else:
-			logging.info(f"Failed to fetch stars!")
+				logging.info(f"Failed to fetch stars!")
 
-		logging.info(f"Now waiting {Check_Interval} seconds!")
-		sleep(Check_Interval)
+			logging.info(f"Now waiting {Check_Interval} seconds!")
+			sleep(Check_Interval)
+	except Exception as error:
+		logging.info(f"Unknown Error \x1b[38;5;199m->\x1b[0m {error}")
 
 if __name__ == "__main__":
 	clear()
