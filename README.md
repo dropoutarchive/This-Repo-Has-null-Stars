@@ -1,6 +1,6 @@
 # Information
 `If you would like to be on this repo's readme`</br>`simply fork or star it!`</br>
 # Forks
-`1` - `cpplover69`</br>`2` - `prokube`</br>`3` - `AcaiBerii`</br>`4` - `CodeDiseaseDev`</br>`5` - `Phenomenon1337`</br>`6` - `TrollerZLabZ`</br>`7` - `durrin`</br>`8` - `kiIogram`</br>
+`1` - `Errorcrafter`</br>`2` - `cpplover69`</br>`3` - `prokube`</br>`4` - `AcaiBerii`</br>`5` - `CodeDiseaseDev`</br>`6` - `Phenomenon1337`</br>`7` - `TrollerZLabZ`</br>`8` - `durrin`</br>`9` - `kiIogram`</br>
 # Stargazers
 `1` - `Dropout1337`</br>`2` - `CodeDiseaseDev`</br>`3` - `n1ckyl337`</br>`4` - `kiIogram`</br>`5` - `traumatism`</br>`6` - `weaponries`</br>`7` - `nophora`</br>`8` - `johntaxmi`</br>`9` - `SoloDevOG`</br>`10` - `TrollerZLabZ`</br>`11` - `Astivery`</br>`12` - `0x069`</br>`13` - `SirCartier1337`</br>`14` - `LastMalware`</br>`15` - `lukekweston`</br>`16` - `TerminalPR0`</br>`17` - `BinaryWorld0101201`</br>`18` - `Veexy`</br>`19` - `NotSwaraj`</br>`20` - `Phenomenon1337`</br>`21` - `bash0x0`</br>`22` - `vantaxyz`</br>`23` - `Prov1337`</br>`24` - `filtrated`</br>`25` - `cpplover69`</br>`26` - `TudbuT`</br>`27` - `AcaiBerii`</br>`28` - `KoolenDasheppi`</br>`29` - `Errorcrafter`</br>`30` - `lanastasov`</br>
