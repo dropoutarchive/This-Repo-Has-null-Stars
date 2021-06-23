@@ -1,5 +1,5 @@
 # Information
-`WARNING: No londer hosted`
+`WARNING: No longer hosted`</br>
 `If you would like to be on this repo's readme`</br>`simply fork or star it!`</br>
 # Forks
 `1` - `Flowzii`</br>`2` - `Errorcrafter`</br>`3` - `vk-nom`</br>`4` - `prokube`</br>`5` - `CodeDiseaseDev`</br>`6` - `Phenomenon1337`</br>`7` - `TrollerZLabZ`</br>`8` - `kiIogram`</br>
